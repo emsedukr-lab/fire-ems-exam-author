@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fire EMS Exam Author"
+  short_description: "Build firefighter first-aid question banks, summaries, and mock exams"
+  default_prompt: "Analyze these 응급처치학개론 source files, build a question bank with explanations, and generate the requested Markdown plus JSON outputs in the current working directory."
