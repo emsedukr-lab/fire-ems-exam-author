@@ -18,6 +18,8 @@
   - 문항 구조화, 정답 확정/추정, 해설, 만다라트, 검수 큐, Markdown 출력까지 일괄 실행
 - [references/mandalart-authoring.md](./references/mandalart-authoring.md)
   - `기출 1문항 -> 만다라트 1장 -> 변형문항 5~7개`와 4지 선다 전용 3x3 제작 규격
+- [web/](./web/)
+  - Next.js 운영 콘솔. 업로드, 분석 실행, 결과/검수 큐 확인을 웹에서 처리
 
 ## 지원 입력 형식
 
@@ -64,6 +66,27 @@ python3 scripts/build_review_queue.py --workspace .
 python3 scripts/render_past_analysis.py --workspace .
 ```
 
+웹 프론트엔드는 `web/`에서 실행합니다.
+
+```bash
+cd /Users/chungji/fire-ems-exam-author/web
+pnpm install
+pnpm dev
+```
+
+기본 웹 흐름:
+- 파일 업로드로 새 워크스페이스 생성
+- 업로드 직후 Python 추출/분석 파이프라인 실행
+- 워크스페이스 상세 페이지에서 결과/검수 큐/Markdown 출력 확인
+- 같은 상세 페이지에서 `intake-manifest.json`, `exam-bank.json`, `review-queue.json`도 raw preview 가능
+- 필요 시 재실행 버튼으로 현 워크스페이스 다시 분석
+
+주요 API 경로:
+- `GET /api/workspaces`
+- `POST /api/workspaces`
+- `GET /api/workspaces/:workspaceId`
+- `POST /api/workspaces/:workspaceId/rerun`
+
 생성되는 기본 폴더:
 
 ```text
@@ -81,6 +104,7 @@ python3 scripts/render_past_analysis.py --workspace .
 - 둘 다 동시에 생성
 - 기본 분석 단위는 `기출 1문항 -> 만다라트 1장 -> 변형문항 5~7개`
 - 4지 선다형은 `출제의도 / 정답 근거 / 오답① / 오답② / 중심문항 / 오답③ / 조건변형 / 형식변형 / 피드백` 구조를 사용
+- 웹 업로드 워크스페이스는 저장소 루트의 `workspaces/` 아래에 생성되며 Git 추적에서 제외됨
 - 저신뢰 문항, 출처 충돌 문항, OCR 품질 저하 문항, 정답표 부재 문항은 `review/`로 이동
 - 검수 완료 전에는 출판 반영용 최종본 생성 금지
 
