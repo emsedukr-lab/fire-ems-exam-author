@@ -44,11 +44,14 @@ def main() -> int:
     ensure_json(
         root / "bank" / "exam-bank.json",
         {
-            "version": 1,
+            "version": 2,
             "generated_at": utc_now(),
             "source_documents": [],
+            "source_segments": [],
             "exam_items": [],
+            "answer_resolutions": [],
             "explanation_bundles": [],
+            "item_mandalarts": [],
             "distractor_mandalarts": [],
             "summary_units": [],
             "mock_exam_sets": [],

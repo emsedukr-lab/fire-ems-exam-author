@@ -32,8 +32,53 @@ Each wrong choice must produce one mandal-art record with:
 - one center misconception
 - eight surrounding axes
 - one new question idea for each axis
+- one correction condition
+- one list of variant question types
+- one remediation note
+- one `오답 검증형`
+- one `오답 교정형`
 
 Missing axes means the item is incomplete.
+
+## Item Mandalart Completeness
+
+Each 4-choice base question must produce one `item_mandalart` with:
+- one center question summary
+- the fixed 8 cells:
+  - `출제의도`
+  - `정답 근거`
+  - `오답① 분석`
+  - `오답② 분석`
+  - `오답③ 분석`
+  - `조건변형`
+  - `형식변형`
+  - `피드백`
+- 5 to 7 variant items
+- one `analysis_card`
+- one six-item completion checklist
+
+The minimum required variant set is:
+- `원형 유지형`
+- `오답 A 기반 변형형`
+- `오답 B 기반 변형형`
+- `오답 C 기반 변형형`
+- `통합 비교형`
+
+Recommended additional items:
+- `이유 선택형`
+- `오답 교정형`
+
+If the variant set drops below 5 items, the question is incomplete.
+
+## All-Distractors-Reflected Gate
+
+All six checks must pass:
+- 오답 3개 각각에 오개념 이름이 붙어 있는가
+- 오답 3개 각각에 선택 이유가 적혀 있는가
+- 오답 3개 각각에 교정 조건이 적혀 있는가
+- 오답 3개 각각으로 전용 변형문항이 1개 이상 만들어졌는가
+- 오답 3개 각각에 개별 해설이 있는가
+- 어떤 오답도 단순 소거용 보기로만 쓰이지 않았는가
 
 ## Summary Book Rules
 

@@ -21,8 +21,24 @@ Always write outputs into the current working directory, never into the skill fo
   - Create the standard workspace folders and starter JSON files in the current working directory.
 - `scripts/extract_source_text.py`
   - Copy source files into `sources/`, extract text where possible, and write an intake manifest.
+- `scripts/parse_exam_items.py`
+  - Parse extracted text into `source_segment` and `exam_item` records.
+- `scripts/resolve_answers.py`
+  - Match answer sheets, infer topic, and resolve official or predicted answers.
+- `scripts/build_explanations.py`
+  - Generate answer basis and full choice-by-choice explanations.
+- `scripts/build_mandalart.py`
+  - Create `item_mandalart`, `distractor_mandalart`, and 4-6 variant items per base question.
+- `scripts/build_review_queue.py`
+  - Build `review/review-queue.json` and `review/review-queue.md`.
+- `scripts/render_past_analysis.py`
+  - Render Markdown analysis outputs from the JSON bank.
+- `scripts/run_analysis_pipeline.py`
+  - Run the full post-extraction pipeline in sequence.
 - `references/data-contracts.md`
   - Canonical folder layout and JSON type contracts.
+- `references/mandalart-authoring.md`
+  - Standard 4-choice 3x3 authoring frame for `기출 1문항 -> 만다라트 1장 -> 변형문항 5~7개`.
 - `references/source-intake.md`
   - Format-specific extraction routes and fallbacks.
 - `references/review-checklist.md`
@@ -67,6 +83,12 @@ Then ingest files:
 python3 /Users/chungji/.codex/skills/fire-ems-exam-author/scripts/extract_source_text.py --workspace . <source-file>...
 ```
 
+Then run the analysis pipeline:
+
+```bash
+python3 /Users/chungji/.codex/skills/fire-ems-exam-author/scripts/run_analysis_pipeline.py --workspace .
+```
+
 ## Workflow
 
 1. Initialize the workspace in the current working directory.
@@ -85,13 +107,30 @@ python3 /Users/chungji/.codex/skills/fire-ems-exam-author/scripts/extract_source
    - Which misconception each distractor represents
    - Which evidence supports the explanation
 8. Expand every wrong choice into a `distractor_mandalart`.
-9. Assemble downstream outputs from the same bank:
+9. Build one `item_mandalart` per 4-choice question using the fixed 3x3 frame:
+   - `출제의도`
+   - `정답 근거`
+   - `오답① 분석`
+   - `오답② 분석`
+   - `오답③ 분석`
+   - `조건변형`
+   - `형식변형`
+   - `피드백`
+10. Generate 5 to 7 variant items per 4-choice base question:
+   - `원형 유지형`
+   - `오답 A 기반 변형형`
+   - `오답 B 기반 변형형`
+   - `오답 C 기반 변형형`
+   - `통합 비교형`
+   - optional `이유 선택형`
+   - optional `오답 교정형`
+11. Assemble downstream outputs from the same bank:
    - `기출 분석`
    - `요약집`
    - `모의고사`
    - `오답 만다라트`
-10. Route low-confidence, conflicting, OCR-damaged, or answer-key-missing items into `review/`.
-11. Refuse to produce a publication-ready final pack until review is complete.
+12. Route low-confidence, conflicting, OCR-damaged, or answer-key-missing items into `review/`.
+13. Refuse to produce a publication-ready final pack until review is complete.
 
 ## Source Handling Rules
 
@@ -135,9 +174,9 @@ At minimum:
 
 Common outputs:
 - `outputs/past-analysis.md`
+- `outputs/distractor-mandalart.md`
 - `outputs/summary-book.md`
 - `outputs/mock-exam-set-01.md`
-- `outputs/distractor-mandalart.md`
 - `review/review-queue.json`
 - `review/review-queue.md`
 
@@ -158,9 +197,12 @@ Read `references/data-contracts.md` before building JSON outputs.
 
 Use these normalized internal types:
 - `source_document`
+- `source_segment`
 - `exam_item`
+- `answer_resolution`
 - `choice_analysis`
 - `explanation_bundle`
+- `item_mandalart`
 - `distractor_mandalart`
 - `summary_unit`
 - `mock_exam_set`

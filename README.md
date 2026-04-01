@@ -14,6 +14,10 @@
   - 현재 작업 폴더에 표준 작업 디렉터리 생성
 - [scripts/extract_source_text.py](./scripts/extract_source_text.py)
   - 원본 파일 수집 및 텍스트 추출
+- [scripts/run_analysis_pipeline.py](./scripts/run_analysis_pipeline.py)
+  - 문항 구조화, 정답 확정/추정, 해설, 만다라트, 검수 큐, Markdown 출력까지 일괄 실행
+- [references/mandalart-authoring.md](./references/mandalart-authoring.md)
+  - `기출 1문항 -> 만다라트 1장 -> 변형문항 5~7개`와 4지 선다 전용 3x3 제작 규격
 
 ## 지원 입력 형식
 
@@ -43,6 +47,23 @@ python3 /Users/chungji/.codex/skills/fire-ems-exam-author/scripts/init_exam_work
 python3 /Users/chungji/.codex/skills/fire-ems-exam-author/scripts/extract_source_text.py --workspace . <source-file>...
 ```
 
+이후 분석 파이프라인을 실행합니다.
+
+```bash
+python3 /Users/chungji/.codex/skills/fire-ems-exam-author/scripts/run_analysis_pipeline.py --workspace .
+```
+
+단계별로 실행하려면 아래 순서를 사용합니다.
+
+```bash
+python3 scripts/parse_exam_items.py --workspace .
+python3 scripts/resolve_answers.py --workspace .
+python3 scripts/build_explanations.py --workspace .
+python3 scripts/build_mandalart.py --workspace .
+python3 scripts/build_review_queue.py --workspace .
+python3 scripts/render_past_analysis.py --workspace .
+```
+
 생성되는 기본 폴더:
 
 ```text
@@ -58,6 +79,8 @@ python3 /Users/chungji/.codex/skills/fire-ems-exam-author/scripts/extract_source
 - 사람용 결과물은 `Markdown`
 - 재활용용 결과물은 `JSON`
 - 둘 다 동시에 생성
+- 기본 분석 단위는 `기출 1문항 -> 만다라트 1장 -> 변형문항 5~7개`
+- 4지 선다형은 `출제의도 / 정답 근거 / 오답① / 오답② / 중심문항 / 오답③ / 조건변형 / 형식변형 / 피드백` 구조를 사용
 - 저신뢰 문항, 출처 충돌 문항, OCR 품질 저하 문항, 정답표 부재 문항은 `review/`로 이동
 - 검수 완료 전에는 출판 반영용 최종본 생성 금지
 

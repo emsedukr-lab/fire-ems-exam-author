@@ -1,0 +1,143 @@
+{
+  "rules": [
+    {
+      "id": "scene-safety-first",
+      "topic_major": "전문심장소생술",
+      "topic_minor": "심정지",
+      "keywords": ["현장", "안전", "접근", "위험", "환자 접근 전"],
+      "positive_patterns": ["현장 안전", "주변 안전", "자신의 안전", "안전 확인"],
+      "negative_patterns": ["바로 압박", "곧바로 이송", "즉시 이동"],
+      "basis": "응급처치의 시작은 구조자와 현장의 안전 확인이다.",
+      "source_refs": [
+        {"kind": "url", "value": "https://www.kfsi.or.kr/mobile/infocenter/InfocenterCampaignSososimResuscitation.do?_menuNo=4690"},
+        {"kind": "url", "value": "https://cpr.heart.org/en/resources/what-is-cpr"}
+      ]
+    },
+    {
+      "id": "adult-cpr-30-2",
+      "topic_major": "전문심장소생술",
+      "topic_minor": "심정지",
+      "keywords": ["심폐소생술", "cpr", "가슴압박", "인공호흡", "압박 대 호흡"],
+      "positive_patterns": ["30:2", "30 대 2", "가슴압박 30회", "압박 30회", "30회 압박"],
+      "negative_patterns": ["15:2", "10:1", "5:1"],
+      "basis": "성인 기본 심폐소생술은 30회 가슴압박과 2회 호흡 비율을 사용한다.",
+      "source_refs": [
+        {"kind": "url", "value": "https://cpr.heart.org/en/resources/what-is-cpr"},
+        {"kind": "url", "value": "https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines/adult-basic-and-advanced-life-support"}
+      ]
+    },
+    {
+      "id": "adult-cpr-rate",
+      "topic_major": "전문심장소생술",
+      "topic_minor": "심정지",
+      "keywords": ["가슴압박 속도", "압박 속도", "분당", "compression rate"],
+      "positive_patterns": ["100~120", "100-120", "분당 100", "분당 120", "100 회 이상 120 회 이하"],
+      "negative_patterns": ["분당 80", "분당 60", "분당 140"],
+      "basis": "성인 고품질 심폐소생술의 가슴압박 속도는 분당 100회에서 120회 범위다.",
+      "source_refs": [
+        {"kind": "url", "value": "https://cpr.heart.org/en/resuscitation-science/high-quality-cpr"},
+        {"kind": "url", "value": "https://cpr.heart.org/en/resources/what-is-cpr"}
+      ]
+    },
+    {
+      "id": "adult-cpr-depth",
+      "topic_major": "전문심장소생술",
+      "topic_minor": "심정지",
+      "keywords": ["압박 깊이", "깊이", "cm", "mm"],
+      "positive_patterns": ["5cm", "5 cm", "50 mm", "적어도 5", "5~6cm", "2 inches"],
+      "negative_patterns": ["2cm", "3cm", "7cm"],
+      "basis": "성인 고품질 가슴압박 깊이는 최소 5cm 수준이며 과도한 압박은 피한다.",
+      "source_refs": [
+        {"kind": "url", "value": "https://cpr.heart.org/en/resuscitation-science/high-quality-cpr"},
+        {"kind": "url", "value": "https://cpr.heart.org/en/resources/what-is-cpr"}
+      ]
+    },
+    {
+      "id": "responsiveness-breathing-check",
+      "topic_major": "전문심장소생술",
+      "topic_minor": "심정지",
+      "keywords": ["반응", "의식", "호흡", "무반응", "비정상 호흡"],
+      "positive_patterns": ["반응 확인", "의식 확인", "호흡 확인", "무반응", "비정상 호흡"],
+      "negative_patterns": ["혈압 먼저", "체온 먼저", "맥박만 먼저"],
+      "basis": "심정지 인지는 반응과 호흡 상태를 즉시 확인하는 것에서 시작한다.",
+      "source_refs": [
+        {"kind": "url", "value": "https://www.kfsi.or.kr/mobile/infocenter/InfocenterCampaignSososimResuscitation.do?_menuNo=4690"},
+        {"kind": "url", "value": "https://cpr.heart.org/en/resources/what-is-cpr"}
+      ]
+    },
+    {
+      "id": "aed-early-use",
+      "topic_major": "전문심장소생술",
+      "topic_minor": "심정지",
+      "keywords": ["aed", "제세동", "자동심장충격기"],
+      "positive_patterns": ["aed", "자동심장충격기", "제세동"],
+      "negative_patterns": ["10분 뒤", "의식 회복 후", "이송 후 사용"],
+      "basis": "심정지에서는 조기 제세동이 생존율 향상에 중요하다.",
+      "source_refs": [
+        {"kind": "url", "value": "https://cpr.heart.org/en/resources/what-is-cpr"},
+        {"kind": "url", "value": "https://www.kfsi.or.kr/mobile/infocenter/InfocenterCampaignSososimResuscitation.do?_menuNo=4690"}
+      ]
+    },
+    {
+      "id": "bleeding-direct-pressure",
+      "topic_major": "전문외상처치술",
+      "topic_minor": "출혈 및 쇼크",
+      "keywords": ["출혈", "지혈", "외부 출혈"],
+      "positive_patterns": ["직접 압박", "압박 지혈", "직접지혈"],
+      "negative_patterns": ["지혈대 없이 방치", "바로 세척만", "문지른다"],
+      "basis": "외부 출혈의 기본 처치는 직접 압박을 통한 지혈이다.",
+      "source_refs": [
+        {"kind": "url", "value": "https://law.go.kr/LSW/flDownload.do?bylClsCd=200201&flNm=%5B%EB%B3%84%ED%91%9C+1%EC%9D%982%5D+%EC%9D%91%EA%B8%89%EC%B2%98%EC%B9%98%ED%95%99%EA%B0%9C%EB%A1%A0%EC%9D%98+%EB%B2%94%EC%9C%84%28%EC%A0%9C3%EC%A1%B0+%EA%B4%80%EB%A0%A8%29&flSeq=127957099"}
+      ]
+    },
+    {
+      "id": "burn-cooling",
+      "topic_major": "전문외상처치술",
+      "topic_minor": "화상",
+      "keywords": ["화상", "열화상", "화상 처치"],
+      "positive_patterns": ["흐르는 물", "찬물", "냉각", "식힌다"],
+      "negative_patterns": ["얼음 직접", "연고 먼저", "치약", "기름"],
+      "basis": "열화상 초기 처치는 흐르는 물로 냉각하고 추가 손상을 줄이는 것이다.",
+      "source_refs": [
+        {"kind": "url", "value": "https://law.go.kr/LSW/flDownload.do?bylClsCd=200201&flNm=%5B%EB%B3%84%ED%91%9C+1%EC%9D%982%5D+%EC%9D%91%EA%B8%89%EC%B2%98%EC%B9%98%ED%95%99%EA%B0%9C%EB%A1%A0%EC%9D%98+%EB%B2%94%EC%9C%84%28%EC%A0%9C3%EC%A1%B0+%EA%B4%80%EB%A0%A8%29&flSeq=127957099"}
+      ]
+    },
+    {
+      "id": "anaphylaxis-epinephrine",
+      "topic_major": "내과 응급",
+      "topic_minor": "면역 질환",
+      "keywords": ["아나필락시스", "알레르기", "호흡곤란", "알레르기 반응"],
+      "positive_patterns": ["에피네프린", "epinephrine", "자가주사", "기도 부종"],
+      "negative_patterns": ["항생제 먼저", "진통제 먼저", "지켜본다"],
+      "basis": "아나필락시스는 기도와 순환 문제를 동반할 수 있어 에피네프린이 핵심 처치다.",
+      "source_refs": [
+        {"kind": "url", "value": "https://law.go.kr/LSW/flDownload.do?bylClsCd=200201&flNm=%5B%EB%B3%84%ED%91%9C+1%EC%9D%982%5D+%EC%9D%91%EA%B8%89%EC%B2%98%EC%B9%98%ED%95%99%EA%B0%9C%EB%A1%A0%EC%9D%98+%EB%B2%94%EC%9C%84%28%EC%A0%9C3%EC%A1%B0+%EA%B4%80%EB%A0%A8%29&flSeq=127957099"}
+      ]
+    },
+    {
+      "id": "stroke-fast",
+      "topic_major": "전문심장소생술",
+      "topic_minor": "뇌졸중",
+      "keywords": ["뇌졸중", "stroke", "편마비", "구음장애", "안면마비"],
+      "positive_patterns": ["안면", "팔", "말", "시간", "fast", "편마비"],
+      "negative_patterns": ["심전도만 우선", "혈압만 우선", "휴식 후 관찰"],
+      "basis": "뇌졸중 평가는 FAST처럼 신경학적 이상을 빠르게 인지하고 시간을 기록하는 것이 중요하다.",
+      "source_refs": [
+        {"kind": "url", "value": "https://law.go.kr/LSW/flDownload.do?bylClsCd=200201&flNm=%5B%EB%B3%84%ED%91%9C+1%EC%9D%982%5D+%EC%9D%91%EA%B8%89%EC%B2%98%EC%B9%98%ED%95%99%EA%B0%9C%EB%A1%A0%EC%9D%98+%EB%B2%94%EC%9C%84%28%EC%A0%9C3%EC%A1%B0+%EA%B4%80%EB%A0%A8%29&flSeq=127957099"}
+      ]
+    },
+    {
+      "id": "legal-duty-records",
+      "topic_major": "응급의료체계의 개요",
+      "topic_minor": "의료/법적 책임",
+      "keywords": ["법적 책임", "기록", "응급의료법", "의무", "윤리"],
+      "positive_patterns": ["기록", "법률", "윤리", "책임", "응급의료에 관한 법률"],
+      "negative_patterns": ["기록 불필요", "통신 불필요", "구두 보고만"],
+      "basis": "응급의료 종사자는 관련 법령과 기록 의무를 준수해야 한다.",
+      "source_refs": [
+        {"kind": "url", "value": "https://law.go.kr/LSW/lsInfoP.do?lsiSeq=259517"},
+        {"kind": "url", "value": "https://law.go.kr/LSW/lsInfoP.do?lsiSeq=283207&viewCls=lsRvsDocInfoR"}
+      ]
+    }
+  ]
+}
