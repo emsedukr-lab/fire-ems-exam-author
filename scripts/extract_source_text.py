@@ -21,7 +21,8 @@ from pypdf import PdfReader
 
 
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg"}
-SUPPORTED_EXTENSIONS = {".pdf", ".docx", ".xlsx", ".hwp", ".hwpx"} | IMAGE_EXTENSIONS
+TEXT_EXTENSIONS = {".md", ".txt"}
+SUPPORTED_EXTENSIONS = {".pdf", ".docx", ".xlsx", ".hwp", ".hwpx"} | IMAGE_EXTENSIONS | TEXT_EXTENSIONS
 
 
 def utc_now() -> str:
@@ -162,6 +163,25 @@ def extract_xlsx(path: Path) -> tuple[str | None, list[str], str]:
     return None, notes, "openpyxl"
 
 
+def extract_plain_text(path: Path) -> tuple[str | None, list[str], str]:
+    notes: list[str] = []
+    for encoding in ("utf-8", "utf-8-sig", "cp949"):
+        try:
+            text = path.read_text(encoding=encoding)
+        except UnicodeDecodeError:
+            continue
+        normalized = text.replace("\r\n", "\n").strip()
+        if not normalized:
+            notes.append("Text file was readable but empty.")
+            return None, notes, "plain-text"
+        if path.suffix.lower() == ".md":
+            notes.append("Markdown formatting was preserved as plain text.")
+        return normalized + "\n", notes, "plain-text"
+
+    notes.append("Text file could not be decoded with utf-8 or cp949.")
+    return None, notes, "plain-text"
+
+
 def extract_hwpx(path: Path) -> tuple[str | None, list[str], str]:
     notes: list[str] = []
     fragments: list[str] = []
@@ -216,6 +236,9 @@ def extract_with_route(path: Path) -> tuple[str | None, list[str], str, str | No
     if suffix == ".xlsx":
         text, notes, extractor = extract_xlsx(path)
         return text, notes, extractor, None, "extracted" if text else "partial"
+    if suffix in TEXT_EXTENSIONS:
+        text, notes, extractor = extract_plain_text(path)
+        return text, notes, extractor, None, "extracted" if text else "partial"
     if suffix == ".hwpx":
         text, notes, extractor = extract_hwpx(path)
         status = "extracted" if text else "partial"
@@ -223,7 +246,7 @@ def extract_with_route(path: Path) -> tuple[str | None, list[str], str, str | No
         return text, notes, extractor, fallback, status
     if suffix == ".hwp":
         return extract_hwp(path)
-    return None, ["Unsupported file type for extraction."], "unsupported", None, "failed"
+    return None, [f"Unsupported source type: {suffix or '(no extension)'}"], "unsupported", None, "failed"
 
 
 def write_text_output(path: Path, text: str) -> None:
@@ -256,8 +279,6 @@ def main() -> int:
         source_path = Path(raw_source).expanduser().resolve()
         if not source_path.exists():
             raise FileNotFoundError(f"Source file not found: {source_path}")
-        if source_path.suffix.lower() not in SUPPORTED_EXTENSIONS:
-            raise ValueError(f"Unsupported source type: {source_path.suffix}")
 
         record_id = f"src-{uuid.uuid4().hex[:8]}"
         copied_path = copy_source(source_path, copied_dir)

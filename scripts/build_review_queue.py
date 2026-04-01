@@ -73,9 +73,15 @@ def main() -> int:
                 build_review_entry(item_id, "authoritative conflict", "high", "공식 기준과 사용자 자료를 대조 검수하세요.")
             )
         if item.get("quality_flags"):
-            review_entries.append(
-                build_review_entry(item_id, f"quality flags: {', '.join(item['quality_flags'])}", "medium", "OCR 또는 문항 구조를 다시 확인하세요.")
-            )
+            non_reference_flags = [flag for flag in item["quality_flags"] if flag != "generated_from_reference"]
+            if non_reference_flags:
+                review_entries.append(
+                    build_review_entry(item_id, f"quality flags: {', '.join(non_reference_flags)}", "medium", "OCR 또는 문항 구조를 다시 확인하세요.")
+                )
+            if "generated_from_reference" in item["quality_flags"]:
+                review_entries.append(
+                    build_review_entry(item_id, "generated from reference material", "medium", "자동 생성된 초안 문항의 문구와 정답 근거를 검토하세요.")
+                )
         if item.get("confidence", 0.0) < 0.80:
             review_entries.append(
                 build_review_entry(item_id, "confidence below threshold", "medium", "정답 근거와 선지 해설을 재검토하세요.")

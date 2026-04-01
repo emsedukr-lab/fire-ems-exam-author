@@ -53,6 +53,17 @@ Preserve:
 - row and column provenance
 - formulas as visible text when needed for traceability
 
+### Markdown / TXT
+
+Preferred order:
+1. read as UTF-8 text
+2. fallback to `cp949` for legacy Korean text exports
+
+Preserve:
+- raw paragraph order
+- markdown syntax as plain text when the source is `.md`
+- original filename and provenance
+
 ### HWPX
 
 Preferred order:

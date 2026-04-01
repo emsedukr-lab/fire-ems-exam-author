@@ -14,6 +14,8 @@
   - 현재 작업 폴더에 표준 작업 디렉터리 생성
 - [scripts/extract_source_text.py](./scripts/extract_source_text.py)
   - 원본 파일 수집 및 텍스트 추출
+- [scripts/synthesize_reference_items.py](./scripts/synthesize_reference_items.py)
+  - 기출문항이 없는 참고자료/지시문 업로드에서 규칙 기반 초안 문항 생성
 - [scripts/run_analysis_pipeline.py](./scripts/run_analysis_pipeline.py)
   - 문항 구조화, 정답 확정/추정, 해설, 만다라트, 검수 큐, Markdown 출력까지 일괄 실행
 - [references/mandalart-authoring.md](./references/mandalart-authoring.md)
@@ -27,12 +29,14 @@
 - PNG / JPG / JPEG
 - DOCX
 - XLSX
+- MD / TXT
 - HWP
 - HWPX
 
 기본 처리 원칙:
 - `HWPX`는 ZIP/XML 기반 추출을 우선 시도
 - `HWP`는 전용 파서 우선, 실패 시 `PDF 재내보내기`를 기본 fallback으로 사용
+- 기출문항이 직접 들어 있지 않으면 참고자료/지시문에서 규칙 기반 초안 문항 생성을 시도
 - 정답표가 없으면 추정 정답과 `confidence`, `review_status`를 함께 기록
 
 ## 기본 사용법
@@ -59,6 +63,7 @@ python3 /Users/chungji/.codex/skills/fire-ems-exam-author/scripts/run_analysis_p
 
 ```bash
 python3 scripts/parse_exam_items.py --workspace .
+python3 scripts/synthesize_reference_items.py --workspace .
 python3 scripts/resolve_answers.py --workspace .
 python3 scripts/build_explanations.py --workspace .
 python3 scripts/build_mandalart.py --workspace .

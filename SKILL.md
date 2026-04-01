@@ -23,6 +23,8 @@ Always write outputs into the current working directory, never into the skill fo
   - Copy source files into `sources/`, extract text where possible, and write an intake manifest.
 - `scripts/parse_exam_items.py`
   - Parse extracted text into `source_segment` and `exam_item` records.
+- `scripts/synthesize_reference_items.py`
+  - When no base questions are found, generate draft items from reference-style uploads using authoritative rules.
 - `scripts/resolve_answers.py`
   - Match answer sheets, infer topic, and resolve official or predicted answers.
 - `scripts/build_explanations.py`
@@ -58,6 +60,7 @@ Supported source formats:
 - `PNG`, `JPG`, `JPEG`
 - `DOCX`
 - `XLSX`
+- `MD`, `TXT`
 - `HWP`
 - `HWPX`
 
@@ -95,19 +98,20 @@ python3 /Users/chungji/.codex/skills/fire-ems-exam-author/scripts/run_analysis_p
 2. Copy raw files into `sources/` and extract text into `sources/extracted/`.
 3. Convert each source into normalized text blocks and provenance records.
 4. Structure detected questions into `exam_item` objects.
-5. Map each question to topic taxonomy:
+5. If no base questions were detected, synthesize draft items from reference-style uploads using authoritative rules.
+6. Map each question to topic taxonomy:
    - Use the official firefighter first-aid scope for `topic_major`.
    - Infer `topic_minor` from the source material unless the user supplied a chapter map.
-6. Confirm answers:
+7. Confirm answers:
    - Prefer official answer sheets.
    - If no answer sheet exists, infer answers and set `predicted_answer`, `confidence`, and `review_status`.
-7. Generate explanations for every choice:
+8. Generate explanations for every choice:
    - Why the correct answer is right
    - Why each wrong answer is wrong
    - Which misconception each distractor represents
    - Which evidence supports the explanation
-8. Expand every wrong choice into a `distractor_mandalart`.
-9. Build one `item_mandalart` per 4-choice question using the fixed 3x3 frame:
+9. Expand every wrong choice into a `distractor_mandalart`.
+10. Build one `item_mandalart` per 4-choice question using the fixed 3x3 frame:
    - `출제의도`
    - `정답 근거`
    - `오답① 분석`
@@ -116,7 +120,7 @@ python3 /Users/chungji/.codex/skills/fire-ems-exam-author/scripts/run_analysis_p
    - `조건변형`
    - `형식변형`
    - `피드백`
-10. Generate 5 to 7 variant items per 4-choice base question:
+11. Generate 5 to 7 variant items per 4-choice base question:
    - `원형 유지형`
    - `오답 A 기반 변형형`
    - `오답 B 기반 변형형`
@@ -124,13 +128,13 @@ python3 /Users/chungji/.codex/skills/fire-ems-exam-author/scripts/run_analysis_p
    - `통합 비교형`
    - optional `이유 선택형`
    - optional `오답 교정형`
-11. Assemble downstream outputs from the same bank:
+12. Assemble downstream outputs from the same bank:
    - `기출 분석`
    - `요약집`
    - `모의고사`
    - `오답 만다라트`
-12. Route low-confidence, conflicting, OCR-damaged, or answer-key-missing items into `review/`.
-13. Refuse to produce a publication-ready final pack until review is complete.
+13. Route low-confidence, conflicting, OCR-damaged, or answer-key-missing items into `review/`.
+14. Refuse to produce a publication-ready final pack until review is complete.
 
 ## Source Handling Rules
 

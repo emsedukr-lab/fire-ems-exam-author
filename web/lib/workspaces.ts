@@ -128,11 +128,11 @@ async function runPythonScript(scriptName: string, args: string[]) {
 }
 
 function deriveStatus(examItems: number, reviewEntries: number): WorkspaceStatus {
-  if (examItems === 0) {
-    return "empty";
-  }
   if (reviewEntries > 0) {
     return "needs_review";
+  }
+  if (examItems === 0) {
+    return "empty";
   }
   return "approved";
 }

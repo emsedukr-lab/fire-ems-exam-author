@@ -40,7 +40,8 @@ export function UploadForm() {
         <p className="eyebrow">Launch Pad</p>
         <h2>기출 파일을 올리면 곧바로 분석 워크스페이스를 만듭니다.</h2>
         <p className="supporting-text">
-          PDF, 이미지, DOCX, XLSX, HWP/HWPX를 한 번에 넣고 Python 파이프라인을 그대로 실행합니다.
+          PDF, 이미지, DOCX, XLSX, MD/TXT, HWP/HWPX를 한 번에 넣고 Python 파이프라인을 그대로 실행합니다.
+          기출문항이 없더라도 참고자료와 지시문에서 문항 초안을 자동 생성하도록 fallback이 동작합니다.
         </p>
       </div>
 
@@ -62,6 +63,7 @@ export function UploadForm() {
           type="file"
           multiple
           required
+          accept=".pdf,.png,.jpg,.jpeg,.docx,.xlsx,.md,.txt,.hwp,.hwpx"
           className="visually-hidden"
           onChange={(event) => {
             const names = Array.from(event.target.files ?? []).map((file) => file.name);

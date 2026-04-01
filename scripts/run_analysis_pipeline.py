@@ -9,6 +9,7 @@ from pathlib import Path
 
 STEPS = [
     "parse_exam_items.py",
+    "synthesize_reference_items.py",
     "resolve_answers.py",
     "build_explanations.py",
     "build_mandalart.py",

@@ -37,12 +37,13 @@ def build_answer_resolution(
     external_validation_status = "not_found"
     matched_rule_ids: list[str] = []
     conflict_note = None
+    generated_from_reference = "generated_from_reference" in item.get("quality_flags", [])
 
     if matched_rule:
         matched_rule_ids.append(matched_rule.get("id", ""))
-        if topic_major == "unknown":
+        if generated_from_reference or topic_major == "unknown":
             topic_major = matched_rule.get("topic_major", topic_major)
-        if topic_minor == "unknown":
+        if generated_from_reference or topic_minor == "unknown":
             topic_minor = matched_rule.get("topic_minor", topic_minor)
         if official_answer:
             external_validation_status = "matched" if predicted_answer == official_answer else "conflicted"
@@ -75,7 +76,11 @@ def build_answer_resolution(
     if quality_flags:
         review_status = "needs_review"
         status = "needs_review"
-        review_reasons.append("source quality flags present")
+        non_reference_flags = [flag for flag in quality_flags if flag != "generated_from_reference"]
+        if non_reference_flags:
+            review_reasons.append("source quality flags present")
+        if generated_from_reference:
+            review_reasons.append("generated from reference material")
     if not official_answer:
         review_status = "needs_review"
         status = "needs_review"
